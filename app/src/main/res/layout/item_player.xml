@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="player"
+            type="com.andyprojects.ninecells.database.Player"/>
+        <variable
+            name="itemOnClickListener"
+            type="com.andyprojects.ninecells.user.ItemOnClickListener"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/player_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:onClick="@{ () -> itemOnClickListener.onClick (player) }">
+
+        <TextView
+            android:id="@+id/player_name"
+            style="@style/nameSpaceStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:playerName="@{player}"/>
+
+        <TextView
+            android:id="@+id/player_high_score"
+            style="@style/nameSpaceStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:playerHighScore="@{player}"/>
+
+        <ImageView
+            android:id="@+id/delete_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_delete"
+            android:contentDescription="@string/delete_image"
+            android:onClick="@{() -> itemOnClickListener.onRemoveItemClicked (player)}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Nine Cells</string>
+    <string name="reset">Reset</string>
+    <string name="image_desc">Item view</string>
+    <string name="multi_player">Multi-player</string>
+    <string name="single_player">Single-player</string>
+    <string name="apply">Apply</string>
+    <string name="about">About</string>string>
+    <string name="gameMode">Game mode</string>
+    <string name="what_is_your_name">What is your name?</string>
+    <string name="enter">Enter</string>
+    <string name="name_holder">%s</string>
+    <string name="high_score_holder">High score: %d</string>
+    <string name="add_player">Add player</string>
+    <string name="randy">Randy</string>
+    <string name="versus">Vs</string>
+    <string name="player_a">Player A</string>
+    <string name="player_b">Player B</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="player_confirmation_message">%s already exists, do you wish to continue?</string>
+    <string name="players_confirmation_message">Either %s or %s already exists, do you  wish to continue?</string>
+    <string name="player_removal_message">Are you sure you want to delete %s from database?</string>
+    <string name="name_too_long">Name too long!</string>
+    <string name="some_name_too_long">One of the entered names is too long!</string>
+    <string name="end">End game</string>
+    <string name="turn_indicator">turn indicator</string>
+    <string name="app_version">V 1.0</string>
+    <string name="about_info">\n\nNineCells is a simple and casual game where you try to match the boxes on the grid either vertically , horizontally or diagonally.\n\n
+    </string>
+    <string name="features">Features:\n
+    *Playing Modes: Single-player and Multi-player modes\n\n
+    *Database storage for up to 10 players\n\n
+    *Smart AI-agent (Randy V1.0)</string>
+    <string name="show_list">show list</string>
+    <string name="delete_image">delete_image</string>
+</resources>

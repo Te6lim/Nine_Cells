@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/playerFragment">
+
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.andyprojects.ninecells.gameScreen.GameFragment"
+        android:label="Nine Cells"
+        tools:layout="@layout/fragment_game">
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="nameB"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_gameFragment_to_playerFragment"
+            app:destination="@id/playerFragment"
+            app:enterAnim="@anim/slide_in_enter"
+            app:exitAnim="@anim/fall_out"
+            app:popUpTo="@id/playerFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerFragment"
+        android:name="com.andyprojects.ninecells.user.PlayerFragment"
+        android:label="Nine Cells"
+        tools:layout="@layout/fragment_player">
+        <action
+            android:id="@+id/action_playerFragment_to_gameFragment"
+            app:destination="@id/gameFragment"
+            app:enterAnim="@anim/slide_out_enter"
+            app:exitAnim="@anim/slide_out_exit"
+            app:popEnterAnim="@anim/slide_in_enter"
+            app:popExitAnim="@anim/slide_in_exit"
+            app:popUpTo="@id/playerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.andyprojects.ninecells.gameScreen.AboutFragment"
+        android:label="@string/about"
+        tools:layout="@layout/fragment_about" />
+</navigation>

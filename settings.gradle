@@ -1,0 +1,2 @@
+rootProject.name='Nine Cells'
+include ':app'
