@@ -75,7 +75,7 @@ class GameFragment : Fragment() {
         val application = requireActivity().application
         val userViewModelFactory = UserViewModelFactory(dataSource, application)
         userViewModel = ViewModelProvider(
-            this, userViewModelFactory
+            requireActivity(), userViewModelFactory
         )[UserViewModel::class.java]
 
         playerName = GameFragmentArgs.fromBundle(requireArguments()).name
@@ -129,6 +129,8 @@ class GameFragment : Fragment() {
         endButton.setOnClickListener {
             findNavController().navigate(R.id.action_gameFragment_to_playerFragment)
         }
+
+        userViewModel.players.observe(viewLifecycleOwner) {}
 
         if (humanOpponentName == null) {
             viewModel.moveMade.observe(viewLifecycleOwner, Observer {

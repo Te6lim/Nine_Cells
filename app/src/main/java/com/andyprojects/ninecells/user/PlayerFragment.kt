@@ -17,7 +17,6 @@ import com.andyprojects.ninecells.database.Player
 import com.andyprojects.ninecells.database.PlayerDb
 import com.andyprojects.ninecells.databinding.FragmentPlayerBinding
 import com.andyprojects.ninecells.databinding.ItemPlayerBinding
-import com.andyprojects.ninecells.dialogs.MaxPlayersReachedDialog
 import com.andyprojects.ninecells.dialogs.PlayerConfirmationDialog
 import com.andyprojects.ninecells.dialogs.PlayerRemovalDialog
 
@@ -90,7 +89,7 @@ class PlayerFragment : Fragment() {
         val dataSource = PlayerDb.getInstance(application).playerDbDao
         val userViewModelFactory = UserViewModelFactory(dataSource, application)
         userViewModel = ViewModelProvider(
-            this, userViewModelFactory
+            requireActivity(), userViewModelFactory
         )[UserViewModel::class.java]
 
         userViewModel.players.observe(viewLifecycleOwner, Observer {
@@ -213,18 +212,11 @@ class PlayerFragment : Fragment() {
                 if (nameA!!.length < UserViewModel.MAX_NAME_LENGTH) {
                     if (userViewModel.playerDoesNotExists(nameA!!)) {
                         currentPlayer = Player(nameA!!)
-                        if (playerList != null && playerList!!.size >= 10) {
-                            MaxPlayersReachedDialog(requireActivity()).show(
-                                parentFragmentManager,
-                                maxDialogTag
-                            )
-                        } else {
-                            userViewModel.addNewPlayer(currentPlayer!!)
-                            findNavController().navigate(
-                                PlayerFragmentDirections
-                                    .actionPlayerFragmentToGameFragment(nameA!!, null)
-                            )
-                        }
+                        userViewModel.addNewPlayer(currentPlayer!!)
+                        findNavController().navigate(
+                            PlayerFragmentDirections
+                                .actionPlayerFragmentToGameFragment(nameA!!, null)
+                        )
                     } else {
                         PlayerConfirmationDialog(
                             requireActivity(),
@@ -246,28 +238,14 @@ class PlayerFragment : Fragment() {
                             currentPlayerB = Player(nameB!!)
                             currentPlayer = Player(nameA!!)
 
-                            if (playerList != null && playerList!!.size >= 10) {
-                                MaxPlayersReachedDialog(requireActivity()).show(
-                                    parentFragmentManager,
-                                    maxDialogTag
-                                )
-                            } else {
-                                if (playerList!!.size <= 8) {
-                                    userViewModel.apply {
-                                        addNewPlayer(currentPlayer!!)
-                                        addNewPlayer(currentPlayerB!!)
-                                    }
-                                    findNavController().navigate(
-                                        PlayerFragmentDirections
-                                            .actionPlayerFragmentToGameFragment(nameA!!, nameB)
-                                    )
-                                } else {
-                                    MaxPlayersReachedDialog(requireActivity()).show(
-                                        parentFragmentManager,
-                                        maxDialogTag
-                                    )
-                                }
+                            userViewModel.apply {
+                                addNewPlayer(currentPlayer!!)
+                                addNewPlayer(currentPlayerB!!)
                             }
+                            findNavController().navigate(
+                                PlayerFragmentDirections
+                                    .actionPlayerFragmentToGameFragment(nameA!!, nameB)
+                            )
                         } else {
                             if (userViewModel.playerDoesNotExists(nameB!!) && !userViewModel.playerDoesNotExists(
                                     nameA!!
@@ -275,18 +253,11 @@ class PlayerFragment : Fragment() {
                             ) {
                                 currentPlayerB = Player(nameB!!)
                                 currentPlayer = userViewModel.getPlayer(nameA!!)
-                                if (playerList!!.size >= UserViewModel.MAX_DB_SIZE) {
-                                    MaxPlayersReachedDialog(requireActivity()).show(
-                                        parentFragmentManager,
-                                        maxDialogTag
-                                    )
-                                } else {
-                                    userViewModel.addNewPlayer(currentPlayerB!!)
-                                    findNavController().navigate(
-                                        PlayerFragmentDirections
-                                            .actionPlayerFragmentToGameFragment(nameA!!, nameB)
-                                    )
-                                }
+                                userViewModel.addNewPlayer(currentPlayerB!!)
+                                findNavController().navigate(
+                                    PlayerFragmentDirections
+                                        .actionPlayerFragmentToGameFragment(nameA!!, nameB)
+                                )
                             } else {
                                 if (!userViewModel.playerDoesNotExists(nameB!!) && userViewModel.playerDoesNotExists(
                                         nameA!!
@@ -294,18 +265,11 @@ class PlayerFragment : Fragment() {
                                 ) {
                                     currentPlayer = Player(nameA!!)
                                     currentPlayerB = userViewModel.getPlayer(nameB!!)
-                                    if (playerList!!.size >= UserViewModel.MAX_DB_SIZE) {
-                                        MaxPlayersReachedDialog(requireActivity()).show(
-                                            parentFragmentManager,
-                                            maxDialogTag
-                                        )
-                                    } else {
-                                        userViewModel.addNewPlayer(currentPlayer!!)
-                                        findNavController().navigate(
-                                            PlayerFragmentDirections
-                                                .actionPlayerFragmentToGameFragment(nameA!!, nameB)
-                                        )
-                                    }
+                                    userViewModel.addNewPlayer(currentPlayer!!)
+                                    findNavController().navigate(
+                                        PlayerFragmentDirections
+                                            .actionPlayerFragmentToGameFragment(nameA!!, nameB)
+                                    )
                                 } else {
                                     PlayerConfirmationDialog(
                                         requireActivity(),
