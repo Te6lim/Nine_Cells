@@ -229,62 +229,52 @@ class PlayerFragment : Fragment() {
                         .show()
                 }
             } else {
-                if (nameA!!.isNotEmpty() && nameB!!.isNotEmpty()) {
-                    if (nameA!!.length < UserViewModel.MAX_NAME_LENGTH && nameB!!.length < UserViewModel.MAX_NAME_LENGTH) {
-                        if (userViewModel.playerDoesNotExists(nameB!!) && userViewModel.playerDoesNotExists(
+                if (userViewModel.playerDoesNotExists(nameB!!) && userViewModel.playerDoesNotExists(
+                        nameA!!
+                    )
+                ) {
+                    currentPlayerB = Player(nameB!!)
+                    currentPlayer = Player(nameA!!)
+
+                    userViewModel.apply {
+                        addNewPlayer(currentPlayer!!)
+                        addNewPlayer(currentPlayerB!!)
+                    }
+                    findNavController().navigate(
+                        PlayerFragmentDirections
+                            .actionPlayerFragmentToGameFragment(nameA!!, nameB)
+                    )
+                } else {
+                    if (userViewModel.playerDoesNotExists(nameB!!) && !userViewModel.playerDoesNotExists(
+                            nameA!!
+                        )
+                    ) {
+                        currentPlayerB = Player(nameB!!)
+                        currentPlayer = userViewModel.getPlayer(nameA!!)
+                        userViewModel.addNewPlayer(currentPlayerB!!)
+                        findNavController().navigate(
+                            PlayerFragmentDirections
+                                .actionPlayerFragmentToGameFragment(nameA!!, nameB)
+                        )
+                    } else {
+                        if (!userViewModel.playerDoesNotExists(nameB!!) && userViewModel.playerDoesNotExists(
                                 nameA!!
                             )
                         ) {
-                            currentPlayerB = Player(nameB!!)
                             currentPlayer = Player(nameA!!)
-
-                            userViewModel.apply {
-                                addNewPlayer(currentPlayer!!)
-                                addNewPlayer(currentPlayerB!!)
-                            }
+                            currentPlayerB = userViewModel.getPlayer(nameB!!)
+                            userViewModel.addNewPlayer(currentPlayer!!)
                             findNavController().navigate(
                                 PlayerFragmentDirections
                                     .actionPlayerFragmentToGameFragment(nameA!!, nameB)
                             )
                         } else {
-                            if (userViewModel.playerDoesNotExists(nameB!!) && !userViewModel.playerDoesNotExists(
-                                    nameA!!
-                                )
-                            ) {
-                                currentPlayerB = Player(nameB!!)
-                                currentPlayer = userViewModel.getPlayer(nameA!!)
-                                userViewModel.addNewPlayer(currentPlayerB!!)
-                                findNavController().navigate(
-                                    PlayerFragmentDirections
-                                        .actionPlayerFragmentToGameFragment(nameA!!, nameB)
-                                )
-                            } else {
-                                if (!userViewModel.playerDoesNotExists(nameB!!) && userViewModel.playerDoesNotExists(
-                                        nameA!!
-                                    )
-                                ) {
-                                    currentPlayer = Player(nameA!!)
-                                    currentPlayerB = userViewModel.getPlayer(nameB!!)
-                                    userViewModel.addNewPlayer(currentPlayer!!)
-                                    findNavController().navigate(
-                                        PlayerFragmentDirections
-                                            .actionPlayerFragmentToGameFragment(nameA!!, nameB)
-                                    )
-                                } else {
-                                    PlayerConfirmationDialog(
-                                        requireActivity(),
-                                        nameA!!,
-                                        nameB
-                                    ).show(parentFragmentManager, "CONFIRM")
-                                }
-                            }
+                            PlayerConfirmationDialog(
+                                requireActivity(),
+                                nameA!!,
+                                nameB
+                            ).show(parentFragmentManager, "CONFIRM")
                         }
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            R.string.some_name_too_long,
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
                 }
             }

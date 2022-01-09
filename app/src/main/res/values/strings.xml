@@ -29,7 +29,6 @@
     </string>
     <string name="features">Features:\n
     *Playing Modes: Single-player and Multi-player modes\n\n
-    *Database storage for up to 10 players\n\n
     *Smart AI-agent (Randy V1.0)</string>
     <string name="show_list">show list</string>
     <string name="delete_image">delete_image</string>
